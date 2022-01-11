@@ -1,0 +1,57 @@
+{% extends "annotation/base.html" %}
+
+{% block content %}
+<nav id="training-examples" class="navbar navbar-light bg-light px-3">
+	<a class="navbar-brand" href="#">Screehing Test</a>
+</nav>
+<div class="container">
+	<div class="alert alert-light" >
+		<p><strong>Sentence:</strong> {{sentence}}</p>
+		<p><strong>Taboo events:</strong> {{taboo_events.0}}, {{taboo_events.1}}</p>
+		<div class="row align-items-start">
+			<div class="col events">
+				<strong>What event is described in the sentence?</strong>
+				<ul class="list-group">
+					<li class="list-group-item">
+					    <input class="form-check-input me-1 no-event example1" type="radio" value="no-event" aria-label="" id="option-no-ex1" name="new_event_ex1">
+					    <label class="form-check-label" for="option-no-ex1">No more events</label>
+					</li>
+					<li class="list-group-item">
+					    <input class="form-check-input me-1 example1" type="radio" value="" aria-label="" id="option-other" name="new_event_ex1">
+					    <label class="form-check-label" for="option-other">None of the given options are accurate, the event should be: <input class="form-control" type="text" name="other_ex1" placeholder="Please specify event type here."></label>
+					</li>
+					{% for event in events %}
+					<li class="list-group-item">
+						<input class="form-check-input me-1 example1" type="radio" value="{{event}}" aria-label="{{event}}" id="option-{{event}}" name="new_event_ex1">
+						<label class="form-check-label" for="option-{{event}}">{{event}}</label>
+					</li>
+					{% endfor %}
+				</ul>
+			</div>
+			<div class="col words">
+				<div class="explanation example1">
+					<strong>Please briefly explain.</strong>
+					<textarea class="form-control"></textarea>
+				</div>
+				<div class="word_options example1">
+					<strong>Which words can represent the event {{new_event}}?</strong>
+					<ul class="list-group">
+					  {% for token in tokens %}
+						<li class="list-group-item">
+						    <input class="form-check-input me-1" type="checkbox" value="{{token}}" aria-label="{{token}}" id="option-{{token}}" name="event_trigger_ex1">
+						    <label class="form-check-label" for="option-{{token}}">{{token}}</label>
+						</li>
+					  {% endfor %}
+
+						<li class="list-group-item">
+						    <input class="form-check-input me-1" type="checkbox" value="" aria-label="" id="option-other" name="new_event_ex1">
+						    <label class="form-check-label" for="option-other"><input class="form-control" type="text" name="other_trigger_ex1" placeholder="Add new words"></label>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends "annotation/base.html" %}
+
+{% if not first_task %}
+Previous analysts have identified the following events in the sentence:
+{% for event in identified_events %}
+	<span class="identified_events">event</span>
+{% endfor %}.
+{% endif %}

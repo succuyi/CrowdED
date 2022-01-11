@@ -1,0 +1,135 @@
+{% extends "annotation/base.html" %}
+
+{% block content %}
+	<div>
+		<nav id="training-examples" class="navbar navbar-light bg-light px-3">
+			<a class="navbar-brand" href="#">Tutorial</a>
+			<ul class="nav nav-pills">
+				<li class="nav-item">
+				  <a class="nav-link" href="#example1">Example 1</a>
+				</li>
+				<li class="nav-item">
+				  <a class="nav-link" href="#example2">Example 2</a>
+				</li>
+			</ul>
+		</nav>
+		<div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="container" tabindex="0">
+			<h5 id="example1">Example 1</h5>
+			<div class="container">
+				<p>Below is an example sentence. There are two taboo events: "{{taboo_events.0}}" and "{{taboo_events.1}}". This means that previous analysts have identified that this sentence describes events "{{taboo_events.0}}" and "{{taboo_events.1}}". </p>
+				<p>Your first task is to look for events described in the sentence, in addition to "{{taboo_events.0}}" and "{{taboo_events.1}}".  For example, this sentence also described an event "{{new_event}}". Please select "{{new_event}}" from the event list on the left.</p>
+				<p>Now, you can see a list of keywords from the sentence. In this case, the word "{{trigger_words.0}}" and "{{trigger_words.1}}" can represent the event "{{new_event}}". Please select both words from the list of keywords.</p>
+				<div class="container">
+					<div class="alert alert-light" >
+						<p><strong>Sentence:</strong> {{sentence}}</p>
+						<p><strong>Taboo events:</strong> {{taboo_events.0}}, {{taboo_events.1}}</p>
+						<div class="row align-items-start">
+							<div class="col events example1">
+								<strong>What event is described in the sentence?</strong>
+								<ul class="list-group">
+									<li class="list-group-item">
+									    <input class="form-check-input me-1 no-event example1" type="radio" value="no-event" aria-label="" id="option-no-ex1" name="new_event_ex1">
+									    <label class="form-check-label" for="option-no-ex1">No more events</label>
+									</li>
+									<li class="list-group-item">
+									    <input class="form-check-input me-1 example1" type="radio" value="" aria-label="" id="option-other" name="new_event_ex1">
+									    <label class="form-check-label" for="option-other">None of the given options are accurate, the event should be: <input class="form-control" type="text" name="other_ex1" placeholder="Please specify event type here."></label>
+									</li>
+									{% for event in events %}
+									<li class="list-group-item">
+										<input class="form-check-input me-1 example1" type="radio" value="{{event}}" aria-label="{{event}}" id="option-{{event}}" name="new_event_ex1">
+										<label class="form-check-label" for="option-{{event}}">{{event}}</label>
+									</li>
+									{% endfor %}
+								</ul>
+							</div>
+							<div class="col words example1">
+								<div class="explanation example1">
+									<strong>Please briefly explain.</strong>
+									<textarea class="form-control"></textarea>
+								</div>
+								<div class="word_options example1">
+									<strong>Which words can represent the event {{new_event}}?</strong>
+									<ul class="list-group">
+									  {% for token in tokens %}
+										<li class="list-group-item">
+										    <input class="form-check-input me-1" type="checkbox" value="{{token}}" aria-label="{{token}}" id="option-{{token}}" name="event_trigger_ex1">
+										    <label class="form-check-label" for="option-{{token}}">{{token}}</label>
+										</li>
+									  {% endfor %}
+
+										<li class="list-group-item">
+										    <input class="form-check-input me-1" type="checkbox" value="" aria-label="" id="option-other" name="new_event_ex1">
+										    <label class="form-check-label" for="option-other"><input class="form-control" type="text" name="other_trigger_ex1" placeholder="Add new words"></label>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			<h5 id="example2">Example 2</h5>
+			<div class="container">
+				<p>Below is the same example sentence. But now there are three taboo events: "{{taboo_events.0}}", "{{taboo_events.1}}", and "{{new_event}}". </p>
+				<p>Similar to Example 1, your first task is to look for events described in the sentence, in addition to the taboo events. You realize there are no more events in the sentence. Please select "No more events" from the event list.</p>
+				<p>Then, your second task become explaining why there are no more events in the sentence. An example explanation is: <i>This sentence describes three events ("{{taboo_events.0}}", "{{taboo_events.1}}", and "{{new_event}}"), which have been identified by previous analysts. There are no other events in the sentence.</i> Please type this explanation in the textbox.</p>
+				<div class="container">
+					<div class="alert alert-light" >
+						<p><strong>Sentence:</strong> {{sentence}}</p>
+						<p><strong>Taboo events:</strong> {{taboo_events.0}}, {{taboo_events.1}}</p>
+						<div class="row align-items-start">
+							<div class="col events example2">
+								<strong>What event is described in the sentence?</strong>
+								<ul class="list-group">
+									<li class="list-group-item">
+									    <input class="form-check-input me-1 no-event example2" type="radio" value="" aria-label="no-event" id="option-no-ex2" name="new_event_ex2">
+									    <label class="form-check-label" for="option-no-ex2">No more events</label>
+									</li>
+									<li class="list-group-item">
+									    <input class="form-check-input me-1 example2" type="radio" value="" aria-label="" id="option-other" name="new_event_ex2">
+									    <label class="form-check-label" for="option-other">None of the given options are accurate, the event should be: <input class="form-control" type="text" name="other_ex2" placeholder="Please specify event type here."></label>
+									</li>
+									{% for event in events %}
+									<li class="list-group-item">
+										<input class="form-check-input me-1 example2" type="radio" value="{{event}}" aria-label="{{event}}" id="option-{{event}}-ex1" name="new_event_ex2">
+										<label class="form-check-label" for="option-{{event}}-ex1">{{event}}</label>
+									</li>
+									{% endfor %}
+								</ul>
+							</div>
+							<div class="col words example2">
+								<div class="explanation example2">
+									<strong>Please briefly explain.</strong>
+									<textarea class="form-control"></textarea>
+								</div>
+								<div class="word_options example2">
+									<div class="col words">
+										<strong>Which words can represent the event {{new_event}}?</strong>
+										<ul class="list-group">
+										  {% for token in tokens %}
+										  <li class="list-group-item">
+										    <input class="form-check-input me-1" type="checkbox" value="{{token}}" aria-label="{{token}}" id="option-{{token}}-ex1" name="event_trigger_ex2">
+										    <label class="form-check-label" for="option-{{token}}-ex1">{{token}}</label>
+										  </li>
+										  {% endfor %}
+
+											<li class="list-group-item">
+											    <input class="form-check-input me-1" type="checkbox" value="" aria-label="" id="option-other" name="new_event">
+											    <label class="form-check-label" for="option-other"><input class="form-control" type="text" name="other_trigger_ex2" placeholder="Add new words"></label>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<div>
+			
+		</div>
+{% endblock %}

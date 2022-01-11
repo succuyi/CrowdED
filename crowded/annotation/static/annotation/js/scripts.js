@@ -1,0 +1,33 @@
+$(document).ready(function(){
+	$(".explanation").hide();
+	$(".words").hide();
+	$(".form-check-input").change(function(){
+		console.log($(this).attr("class"));
+		if($(this).hasClass("example1")){
+			$(".words.example1").show();
+		}
+		if($(this).hasClass("example2")){
+			$(".words.example2").show();
+		}
+		if($(this).is(':checked')){
+			if($(this).hasClass("no-event")){
+				if($(this).hasClass("example1")){
+					$(".explanation.example1").show();
+					$(".word_options.example1").hide();
+				}else{
+					$(".explanation.example2").show();
+					$(".word_options.example2").hide();
+				}
+			}else{
+				if($(this).hasClass("example1")){
+					$(".explanation.example1").hide();
+					$(".word_options.example1").show();
+				}else{
+					$(".explanation.example2").hide();
+					$(".word_options.example2").show();
+				}
+			}
+			
+		}
+	})
+});
